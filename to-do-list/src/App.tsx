@@ -1,45 +1,46 @@
 import { useState } from "react";
 import "./App.css";
+import "./Cards.css";
+
+type Task = {
+  id: number;
+  text: string;
+};
+
+const tasks: Task[] = [
+  {
+    id: 1,
+    text: "milk",
+  },
+  {
+    id: 2,
+    text: "bread",
+  },
+  {
+    id: 3,
+    text: "sugar",
+  },
+];
 
 function App() {
-  const [result, setResult] = useState(0);
-  const [firstNumber, setFirstNumber] = useState(0);
-  const [secondNumber, setSecondNumber] = useState(0);
-
   return (
     <div className="App">
-      <br></br>
-      <input
-        placeholder="Enter first number"
-        type="text"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setFirstNumber(parseInt(e.target.value))
-        }
-        ></input>
-      <br></br>
-      <span>{firstNumber}</span>
-      <br></br>
-      <input
-        placeholder="Enter second number"
-        type="text"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setSecondNumber(parseInt(e.target.value))
-        }
-        ></input>
-      <br></br>
-      <br></br>
-      <span>{secondNumber}</span>
-      <br></br>
-      <br></br>
-      <button onClick={() => setResult(firstNumber + secondNumber)}> + </button>
-      <br></br>
-      <button onClick={() => setResult(firstNumber - secondNumber)}> - </button>
-      <br></br>
-      <button onClick={() => setResult(firstNumber * secondNumber)}> * </button>
-      <br></br>
-      <button onClick={() => setResult(firstNumber / secondNumber)}> / </button>
-      <br></br><br></br>
-      <span>{result}</span>
+      <div className="box">
+        <h1>To Do List</h1>
+        <div className="wrapper-input-btn">
+          <input
+            className="wrapper__input"
+            type="text"
+            placeholder="Enter your task"
+          ></input>
+          <button>
+            <span className="material-symbols-outlined">add</span>
+          </button>
+        </div>
+        {tasks.map(({ text }) => {
+          return <div className="task">{text}</div>;
+        })}
+      </div>
     </div>
   );
 }

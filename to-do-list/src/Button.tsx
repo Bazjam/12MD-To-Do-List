@@ -6,8 +6,12 @@ type ButtonProps = {
   buttonText: string;
 };
 
-const Button: FC<ButtonProps> = ({ buttonClass, buttonText }) => {
-  return <button className={buttonClass}>{buttonText}</button>;
+const Button: FC<ButtonProps> = () => {
+  let text = document.getElementsByClassName("wrapper__input").value;
+  return text;
 };
 
 export default Button;
+// const Button: FC<ButtonProps> = ({ buttonClass, buttonText }) => {
+
+// return <button className={buttonClass}>{buttonText}</button>;
