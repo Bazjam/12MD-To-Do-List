@@ -34,16 +34,16 @@
   position: relative;
   width: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
   background: #dbe2ef;
   border-radius: 5px;
   margin-bottom: 10px;
   min-height: 50px;
-  font-weight: 700;
+  font-weight: 400;
+  padding-left: 15px;
 }
 
-button {
+.buttonAdd {
   display: flex;
   background-color: #AAAAAA;
   min-height: 30px;
@@ -56,11 +56,25 @@ button {
   padding: 5px 10px;
 }
 
-button:hover {
+.buttonAdd:hover {
   opacity: 0.8;
 }
 
-button .material-symbols-outlined {
+.buttonAdd .material-symbols-outlined {
   color:#dbe2ef;
   font-size: 20px;
+}
+
+.buttonDelete {
+  position: absolute;
+  right: 10px;
+  background: #dbe2ef;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+input[type=checkbox]:checked + span{
+  text-decoration: line-through;
 }

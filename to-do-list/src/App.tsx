@@ -7,41 +7,34 @@ type Task = {
   text: string;
 };
 
-const defaultTasks: Task[] = [
-  {
-    id: 1,
-    text: "milk",
-  },
-  {
-    id: 2,
-    text: "bread",
-  },
-  {
-    id: 3,
-    text: "sugar",
-  },
-];
-
 function App() {
-  
-  const [tasks, setTasks] = useState<Task[]>(defaultTasks);
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [userInput, setUserInput] = useState<string>("");
 
-  const testFunction = () => {
-    setTasks([
-      ...tasks, // rewrite old [{}] to new [{}] with new data
-      {
-        id:tasks.length +1,
-        text: userInput
-      }
-    ])
-  }
+  const addNewTask = () => {
+    if (userInput !== "") {
+      setTasks([
+        ...tasks, // rewrite old [{}] to new [{}] with new data
+        {
+          id: tasks.length + 1, //check length
+          text: userInput,
+        },
+      ]);
+      setUserInput("");
+    }
+  };
 
-  const userInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserInput(e.target.value)//!!!!!!!
-    // e.target.value = "";
+  const deleteTask = (taskId:number) => {
     
-  }
+    const index = tasks.findIndex((element) => element.id === taskId);
+    const newTasks = [...tasks];
+    newTasks.splice(index, 1)
+    setTasks(newTasks);
+  };
+
+  const changeUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserInput(e.target.value); //!!!!!!!
+  };
 
   return (
     <div className="App">
@@ -52,15 +45,26 @@ function App() {
             className="wrapper__input"
             type="text"
             placeholder="Enter your task"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => userInputs(e)} // Save event target value
+            value={userInput}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeUserInput(e)} // Save event target value
           />
-          <button type="button" onClick={() => testFunction()}>
+          <button
+            className="buttonAdd"
+            type="button"
+            onClick={() => addNewTask()}
+          >
             <span className="material-symbols-outlined">add</span>
           </button>
         </div>
-        {tasks.map(({ text }) => {
+        {tasks.map(({ text, id }) => {
           return (
-          <div className="task">{text}</div>
+            <div className="task">
+              <input type="checkbox" name="packersOff" id="packers" value="1" />
+              <span>{text}</span>
+              <button className="buttonDelete" onClick={() => deleteTask(id)}>
+                <span className="material-symbols-outlined delete">delete</span>
+              </button>
+            </div>
           );
         })}
       </div>
