@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import "./Cards.css";
 
@@ -8,15 +8,15 @@ type Task = {
 };
 
 function App() {
+  
   const [tasks, setTasks] = useState<Task[]>([]);
   const [userInput, setUserInput] = useState<string>("");
 
   const addNewTask = () => {
     if (userInput !== "") {
-      setTasks([
-        ...tasks, // rewrite old [{}] to new [{}] with new data
+      setTasks([...tasks,
         {
-          id: tasks.length + 1, //check length
+          id: tasks.length + 1,
           text: userInput,
         },
       ]);
@@ -24,17 +24,20 @@ function App() {
     }
   };
 
-  const deleteTask = (taskId:number) => {
-    
+  const deleteTask = (taskId: number) => {
     const index = tasks.findIndex((element) => element.id === taskId);
     const newTasks = [...tasks];
-    newTasks.splice(index, 1)
+    newTasks.splice(index, 1);
     setTasks(newTasks);
   };
 
   const changeUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserInput(e.target.value); //!!!!!!!
+    setUserInput(e.target.value);
   };
+
+  useEffect(() => {
+    console.log("tasks changed");
+  }, [tasks]);
 
   return (
     <div className="App">
@@ -46,7 +49,9 @@ function App() {
             type="text"
             placeholder="Enter your task"
             value={userInput}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeUserInput(e)} // Save event target value
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              changeUserInput(e)
+            } // Save event target value
           />
           <button
             className="buttonAdd"
@@ -56,6 +61,7 @@ function App() {
             <span className="material-symbols-outlined">add</span>
           </button>
         </div>
+
         {tasks.map(({ text, id }) => {
           return (
             <div className="task">
